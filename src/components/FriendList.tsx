@@ -1,8 +1,7 @@
 import styled from '@emotion/native';
 import {default as React} from 'react';
 import {Image, StyleSheet} from 'react-native';
-import {} from 'react-native-gesture-handler';
-import Search from '../assets/images/search.svg';
+import Search from '../assets/images/Search';
 import {Col, FlexContainer, Row} from '../config/globalStyles';
 import {BoldText, RegularText} from '../config/globalTexts';
 import {theme} from '../config/theme';

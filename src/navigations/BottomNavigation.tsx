@@ -1,11 +1,12 @@
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import React from 'react';
-import ChatGray from '../assets/images/chat-gray.svg';
-import ChatWhite from '../assets/images/chat-white.svg';
-import FriendGray from '../assets/images/friend-gray.svg';
-import FriendWhite from '../assets/images/friend-white.svg';
-import HomGray from '../assets/images/home-gray.svg';
-import HomeWhite from '../assets/images/home-white.svg';
+
+import ChatGray from '../assets/images/ChatGray';
+import ChatWhite from '../assets/images/ChatWhite';
+import FriendGray from '../assets/images/FriendGray';
+import FriendWhite from '../assets/images/FriendWhite';
+import HomeGray from '../assets/images/HomeGray';
+import HomeWhite from '../assets/images/HomeWhite';
 import ChatList from '../components/ChatList';
 import FriendList from '../components/FriendList';
 import {MyProfile} from '../components/Myprofile';
@@ -31,7 +32,7 @@ export function BottomNavigation() {
           let IconComponent;
 
           if (route.name === '마이홈') {
-            IconComponent = focused ? HomeWhite : HomGray;
+            IconComponent = focused ? HomeWhite : HomeGray;
           } else if (route.name === '친구') {
             IconComponent = focused ? FriendWhite : FriendGray;
           } else if (route.name === '채팅') {

@@ -2,10 +2,11 @@ import styled from '@emotion/native';
 import {useIsFocused} from '@react-navigation/native';
 import React, {useEffect, useState} from 'react';
 import {Image, StyleSheet, TextInput} from 'react-native';
-import Camera from '../assets/images/camera.svg';
-import Cancle from '../assets/images/cancle.svg';
-import Fix from '../assets/images/fixed.svg';
-import Peincil from '../assets/images/pencil.svg';
+
+import Camera from '../assets/images/Camera';
+import Cancle from '../assets/images/Cancle';
+import Fixed from '../assets/images/Fixed';
+import Pencile from '../assets/images/Pencile';
 import {Col, FlexContainer, Row} from '../config/globalStyles';
 import {BoldText, RegularText} from '../config/globalTexts';
 import {theme} from '../config/theme';
@@ -213,7 +214,7 @@ export const MyProfile = () => {
                 <Button
                   style={{position: 'absolute', bottom: 8, right: 0}}
                   onPress={() => onEditText('이름')}>
-                  <Peincil width={15} height={15} />
+                  <Pencile width={15} height={15} />
                 </Button>
               </Col>
 
@@ -236,7 +237,7 @@ export const MyProfile = () => {
                 <Button
                   style={{position: 'absolute', bottom: 8, right: 0}}
                   onPress={() => onEditText('상태메세지')}>
-                  <Peincil width={15} height={15} />
+                  <Pencile width={15} height={15} />
                 </Button>
               </Col>
             </Col>
@@ -253,7 +254,7 @@ export const MyProfile = () => {
                 <RegularText size={16} color={theme.white}>
                   프로필 편집
                 </RegularText>
-                <Fix />
+                <Fixed />
               </Button>
             </Row>
           )}

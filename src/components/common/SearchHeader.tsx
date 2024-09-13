@@ -2,8 +2,8 @@ import styled from '@emotion/native';
 import {StackScreenProps} from '@react-navigation/stack';
 import React from 'react';
 import {SafeAreaView} from 'react-native';
-import ArrowLeft from '../../assets/images/back-white.svg';
-import Search from '../../assets/images/search.svg';
+import BackArrow from '../../assets/images/BackArrow';
+import Search from '../../assets/images/Search';
 import {Col, Row} from '../../config/globalStyles';
 import {BoldText} from '../../config/globalTexts';
 import {vw, wPx} from '../../config/size';
@@ -44,7 +44,7 @@ function SearchHeader({
             vertical="center"
             style={{justifyContent: 'space-between', width: '100%'}}>
             <BackContainer onPress={goBack}>
-              <ArrowLeft width={vw(48)} height={vw(48)} />
+              <BackArrow width={vw(48)} height={vw(48)} />
             </BackContainer>
             <BoldText color={theme.white} size={24}>
               {/* {roomname} */}
