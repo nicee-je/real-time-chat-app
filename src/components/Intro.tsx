@@ -1,6 +1,5 @@
 import styled from '@emotion/native';
 import {useNavigation} from '@react-navigation/native';
-import React from 'react';
 import {Col, FlexContainer, Row} from '../config/globalStyles';
 import {BoldText, RegularText} from '../config/globalTexts';
 import {theme} from '../config/theme';

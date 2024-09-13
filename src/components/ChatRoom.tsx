@@ -9,7 +9,7 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import Send from '../assets/images/send.svg';
+import Send from '../assets/images/Send';
 import {theme} from '../config/theme';
 
 interface Message {
@@ -139,6 +139,7 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     position: 'absolute',
     right: 20,
+    alignItems: 'center',
     justifyContent: 'center',
   },
   sondButtonIcon: {
