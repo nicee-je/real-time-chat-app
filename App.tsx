@@ -1,6 +1,7 @@
 import {NavigationContainer} from '@react-navigation/native';
-import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import React from 'react';
+import Toast from 'react-native-toast-message';
+import PrimaryToast from './src/components/common/Toast';
 import {Rootnavigation} from './src/navigations/RootNavigation';
 
 type RootStackParamList = {
@@ -11,12 +12,14 @@ type RootStackParamList = {
   BottomNavigation: undefined;
 };
 
-const Stack = createNativeStackNavigator<RootStackParamList>();
-
+const toastConfig = {
+  primary: ({text1}: any) => <PrimaryToast title={text1} />,
+};
 function App(): React.JSX.Element {
   return (
     <NavigationContainer>
       <Rootnavigation />
+      <Toast config={toastConfig} />
     </NavigationContainer>
   );
 }
