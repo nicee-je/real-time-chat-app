@@ -3,12 +3,13 @@ import database from '@react-native-firebase/database';
 import {useNavigation} from '@react-navigation/native';
 import React, {useCallback, useEffect, useState} from 'react';
 import {Controller, useForm} from 'react-hook-form';
-import {ActivityIndicator, StyleSheet, TextInput} from 'react-native';
+import {StyleSheet, TextInput} from 'react-native';
+import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import uuid from 'react-native-uuid';
 import primaryToast from '../api/utils/toast';
 import EyeClose from '../assets/images/EyeClose';
 import EyeOpen from '../assets/images/EyeOpen';
-import {Col, FlexContainer} from '../config/globalStyles';
+import {Col} from '../config/globalStyles';
 import {BoldText, RegularText} from '../config/globalTexts';
 import {theme} from '../config/theme';
 
@@ -56,31 +57,9 @@ export const Join = () => {
     return emailRegex.test(emailValue);
   }, [emailValue]);
 
-  const checkEmailDuplicate = async () => {
-    setIsCheckingEmail(true);
-    try {
-      const snapshot = await database()
-        .ref('/users')
-        .orderByChild('emailId')
-        .equalTo(emailValue)
-        .once('value');
-
-      if (snapshot.exists()) {
-        primaryToast('이미 사용중인 이메일 입니다🥹');
-        setIsCompleteCheckEmail(false);
-      } else {
-        setIsCompleteCheckEmail(true);
-        primaryToast('이메일 인증이 완료되었습니다🤩');
-      }
-    } catch (err) {
-      console.error(err);
-    } finally {
-      setIsCheckingEmail(false);
-    }
-  };
-
   const registerUser = async (data: any) => {
     if (!data.name || !data.email || !data.password || !data.passwordConfirm) {
+      console.log('실행중!!!!!');
       primaryToast('모든 항목을 입력해주세요🥹');
       return;
     }
@@ -116,8 +95,33 @@ export const Join = () => {
     }
   };
 
+  // const checkEmailDuplicate = async () => {
+  //   setIsCheckingEmail(true);
+  //   try {
+  //     const snapshot = await database()
+  //       .ref('/users')
+  //       .orderByChild('emailId')
+  //       .equalTo(emailValue)
+  //       .once('value');
+
+  //     if (snapshot.exists()) {
+  //       primaryToast('이미 사용중인 이메일 입니다🥹');
+  //       setIsCompleteCheckEmail(false);
+  //     } else {
+  //       setIsCompleteCheckEmail(true);
+  //       primaryToast('이메일 인증이 완료되었습니다🤩');
+  //     }
+  //   } catch (err) {
+  //     console.error(err);
+  //   } finally {
+  //     setIsCheckingEmail(false);
+  //   }
+  // };
+
   return (
-    <FlexContainer bg={theme.white}>
+    <KeyboardAwareScrollView
+      style={{flex: 1, backgroundColor: theme.white, paddingHorizontal: 30}}>
+      {/* <FlexContainer bg={theme.white}> */}
       <Col>
         <RegularText size={24} lineHeight={35}>
           언제 어디서나 가능한
@@ -151,7 +155,8 @@ export const Join = () => {
               isComplete={isCompleteCheckEmail}
               disabled={!isEmailValid() || isCompleteCheckEmail}
               isActive={isEmailValid() && !isCompleteCheckEmail}
-              onPress={checkEmailDuplicate}>
+              /*onPress={checkEmailDuplicate}*/
+            >
               {isCheckingEmail ? (
                 <ActivityIndicator size="small" color={theme.primary} />
               ) : isCompleteCheckEmail ? (
@@ -267,7 +272,8 @@ export const Join = () => {
           회원가입 완료하기
         </BoldText>
       </BottomButton>
-    </FlexContainer>
+      {/* </FlexContainer> */}
+    </KeyboardAwareScrollView>
   );
 };
 
@@ -293,6 +299,7 @@ const BottomButton = styled.TouchableOpacity({
   justifyContent: 'center',
   backgroundColor: theme.black,
   marginTop: 30,
+  marginBottom: 50,
 });
 
 const EyeButton = styled.TouchableOpacity({
