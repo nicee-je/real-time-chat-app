@@ -3,7 +3,7 @@ import database from '@react-native-firebase/database';
 import {useNavigation} from '@react-navigation/native';
 import React, {useCallback, useEffect, useState} from 'react';
 import {Controller, useForm} from 'react-hook-form';
-import {StyleSheet, TextInput} from 'react-native';
+import {ActivityIndicator, StyleSheet, TextInput} from 'react-native';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import uuid from 'react-native-uuid';
 import primaryToast from '../api/utils/toast';
@@ -95,28 +95,28 @@ export const Join = () => {
     }
   };
 
-  // const checkEmailDuplicate = async () => {
-  //   setIsCheckingEmail(true);
-  //   try {
-  //     const snapshot = await database()
-  //       .ref('/users')
-  //       .orderByChild('emailId')
-  //       .equalTo(emailValue)
-  //       .once('value');
+  const checkEmailDuplicate = async () => {
+    setIsCheckingEmail(true);
+    try {
+      const snapshot = await database()
+        .ref('/users')
+        .orderByChild('emailId')
+        .equalTo(emailValue)
+        .once('value');
 
-  //     if (snapshot.exists()) {
-  //       primaryToast('이미 사용중인 이메일 입니다🥹');
-  //       setIsCompleteCheckEmail(false);
-  //     } else {
-  //       setIsCompleteCheckEmail(true);
-  //       primaryToast('이메일 인증이 완료되었습니다🤩');
-  //     }
-  //   } catch (err) {
-  //     console.error(err);
-  //   } finally {
-  //     setIsCheckingEmail(false);
-  //   }
-  // };
+      if (snapshot.exists()) {
+        primaryToast('이미 사용중인 이메일 입니다🥹');
+        setIsCompleteCheckEmail(false);
+      } else {
+        setIsCompleteCheckEmail(true);
+        primaryToast('이메일 인증이 완료되었습니다🤩');
+      }
+    } catch (err) {
+      console.error(err);
+    } finally {
+      setIsCheckingEmail(false);
+    }
+  };
 
   return (
     <KeyboardAwareScrollView
@@ -155,8 +155,7 @@ export const Join = () => {
               isComplete={isCompleteCheckEmail}
               disabled={!isEmailValid() || isCompleteCheckEmail}
               isActive={isEmailValid() && !isCompleteCheckEmail}
-              /*onPress={checkEmailDuplicate}*/
-            >
+              onPress={checkEmailDuplicate}>
               {isCheckingEmail ? (
                 <ActivityIndicator size="small" color={theme.primary} />
               ) : isCompleteCheckEmail ? (
