@@ -1,5 +1,7 @@
 import styled from '@emotion/native';
+import auth from '@react-native-firebase/auth';
 import database from '@react-native-firebase/database';
+import messaging from '@react-native-firebase/messaging';
 import {useNavigation} from '@react-navigation/native';
 import React, {useCallback, useEffect, useState} from 'react';
 import {Controller, useForm} from 'react-hook-form';
@@ -59,7 +61,6 @@ export const Join = () => {
 
   const registerUser = async (data: any) => {
     if (!data.name || !data.email || !data.password || !data.passwordConfirm) {
-      console.log('실행중!!!!!');
       primaryToast('모든 항목을 입력해주세요🥹');
       return;
     }
@@ -74,19 +75,29 @@ export const Join = () => {
       return;
     }
 
-    const userData = {
-      id: uuid.v4(),
-      name: data.name,
-      emailId: data.email,
-      password: data.password,
-      passwordConfirm: data.passwordConfirm,
-      img: 'https://www.pngall.com/wp-content/uploads/5/User-Profile-PNG-High-Quality-Image.png',
-    };
-
     try {
+      // FCM 토큰을 가져옵니다.
+      const fcmToken = await messaging().getToken();
+
+      const userData = {
+        id: uuid.v4(),
+        name: data.name,
+        emailId: data.email,
+        password: data.password,
+        passwordConfirm: data.passwordConfirm,
+        profileImage: '',
+        profileMessage: '',
+        token: fcmToken, // FCM 토큰을 userData에 추가
+      };
+
+      // Firebase Realtime Database에 사용자 정보 저장
       await database()
         .ref('/users/' + userData.id)
         .set(userData);
+
+      // Firebase Authentication에 사용자 등록
+      await auth().createUserWithEmailAndPassword(data.email, data.password);
+
       primaryToast('회원가입이 완료되었습니다🥳');
       navigation.navigate('BottomNavigation');
     } catch (err) {
